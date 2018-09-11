@@ -15,6 +15,14 @@
 		D73D293021477365001E513F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D73D292F21477365001E513F /* main.m */; };
 		D73D293A21477365001E513F /* PhotoSelectorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73D293921477365001E513F /* PhotoSelectorTests.m */; };
 		D73D294521477365001E513F /* PhotoSelectorUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D73D294421477365001E513F /* PhotoSelectorUITests.m */; };
+		D73D29602147745C001E513F /* JKPhotoSelectorView.m in Sources */ = {isa = PBXBuildFile; fileRef = D73D29532147745C001E513F /* JKPhotoSelectorView.m */; };
+		D73D29612147745C001E513F /* JKPhotoTypeView.m in Sources */ = {isa = PBXBuildFile; fileRef = D73D29562147745C001E513F /* JKPhotoTypeView.m */; };
+		D73D29622147745C001E513F /* JKPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D73D29572147745C001E513F /* JKPhotoCollectionViewCell.m */; };
+		D73D29632147745C001E513F /* JKPhotoBrowseController.m in Sources */ = {isa = PBXBuildFile; fileRef = D73D29592147745C001E513F /* JKPhotoBrowseController.m */; };
+		D73D29642147745C001E513F /* icon_ps_delete@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D73D295B2147745C001E513F /* icon_ps_delete@2x.png */; };
+		D73D29652147745C001E513F /* icon_ps_delete@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D73D295C2147745C001E513F /* icon_ps_delete@3x.png */; };
+		D73D29662147745C001E513F /* icon_ps_bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D73D295D2147745C001E513F /* icon_ps_bg@2x.png */; };
+		D73D29672147745C001E513F /* icon_ps_bg@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = D73D295E2147745C001E513F /* icon_ps_bg@3x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +59,18 @@
 		D73D294021477365001E513F /* PhotoSelectorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PhotoSelectorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D73D294421477365001E513F /* PhotoSelectorUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoSelectorUITests.m; sourceTree = "<group>"; };
 		D73D294621477365001E513F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D73D29532147745C001E513F /* JKPhotoSelectorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKPhotoSelectorView.m; sourceTree = "<group>"; };
+		D73D29542147745C001E513F /* JKPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		D73D29552147745C001E513F /* JKPhotoBrowseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPhotoBrowseController.h; sourceTree = "<group>"; };
+		D73D29562147745C001E513F /* JKPhotoTypeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKPhotoTypeView.m; sourceTree = "<group>"; };
+		D73D29572147745C001E513F /* JKPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKPhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		D73D29582147745C001E513F /* JKPhotoSelectorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPhotoSelectorView.h; sourceTree = "<group>"; };
+		D73D29592147745C001E513F /* JKPhotoBrowseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKPhotoBrowseController.m; sourceTree = "<group>"; };
+		D73D295B2147745C001E513F /* icon_ps_delete@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_ps_delete@2x.png"; sourceTree = "<group>"; };
+		D73D295C2147745C001E513F /* icon_ps_delete@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_ps_delete@3x.png"; sourceTree = "<group>"; };
+		D73D295D2147745C001E513F /* icon_ps_bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_ps_bg@2x.png"; sourceTree = "<group>"; };
+		D73D295E2147745C001E513F /* icon_ps_bg@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_ps_bg@3x.png"; sourceTree = "<group>"; };
+		D73D295F2147745C001E513F /* JKPhotoTypeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPhotoTypeView.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +121,7 @@
 		D73D291F21477363001E513F /* PhotoSelector */ = {
 			isa = PBXGroup;
 			children = (
+				D73D29522147745C001E513F /* PhotoSelector */,
 				D73D292021477363001E513F /* AppDelegate.h */,
 				D73D292121477363001E513F /* AppDelegate.m */,
 				D73D292321477363001E513F /* ViewController.h */,
@@ -130,6 +151,33 @@
 				D73D294621477365001E513F /* Info.plist */,
 			);
 			path = PhotoSelectorUITests;
+			sourceTree = "<group>";
+		};
+		D73D29522147745C001E513F /* PhotoSelector */ = {
+			isa = PBXGroup;
+			children = (
+				D73D29532147745C001E513F /* JKPhotoSelectorView.m */,
+				D73D29542147745C001E513F /* JKPhotoCollectionViewCell.h */,
+				D73D29552147745C001E513F /* JKPhotoBrowseController.h */,
+				D73D29562147745C001E513F /* JKPhotoTypeView.m */,
+				D73D29572147745C001E513F /* JKPhotoCollectionViewCell.m */,
+				D73D29582147745C001E513F /* JKPhotoSelectorView.h */,
+				D73D29592147745C001E513F /* JKPhotoBrowseController.m */,
+				D73D295A2147745C001E513F /* Resource */,
+				D73D295F2147745C001E513F /* JKPhotoTypeView.h */,
+			);
+			path = PhotoSelector;
+			sourceTree = "<group>";
+		};
+		D73D295A2147745C001E513F /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				D73D295B2147745C001E513F /* icon_ps_delete@2x.png */,
+				D73D295C2147745C001E513F /* icon_ps_delete@3x.png */,
+				D73D295D2147745C001E513F /* icon_ps_bg@2x.png */,
+				D73D295E2147745C001E513F /* icon_ps_bg@3x.png */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,8 +284,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D73D292D21477365001E513F /* LaunchScreen.storyboard in Resources */,
+				D73D29652147745C001E513F /* icon_ps_delete@3x.png in Resources */,
 				D73D292A21477365001E513F /* Assets.xcassets in Resources */,
+				D73D29662147745C001E513F /* icon_ps_bg@2x.png in Resources */,
 				D73D292821477363001E513F /* Main.storyboard in Resources */,
+				D73D29672147745C001E513F /* icon_ps_bg@3x.png in Resources */,
+				D73D29642147745C001E513F /* icon_ps_delete@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -262,9 +314,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D73D29622147745C001E513F /* JKPhotoCollectionViewCell.m in Sources */,
 				D73D292521477363001E513F /* ViewController.m in Sources */,
+				D73D29612147745C001E513F /* JKPhotoTypeView.m in Sources */,
 				D73D293021477365001E513F /* main.m in Sources */,
+				D73D29632147745C001E513F /* JKPhotoBrowseController.m in Sources */,
 				D73D292221477363001E513F /* AppDelegate.m in Sources */,
+				D73D29602147745C001E513F /* JKPhotoSelectorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -436,11 +492,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9T6M24N5BR;
 				INFOPLIST_FILE = PhotoSelector/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdos.PhotoSelector;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hdos.JnKindle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -453,11 +510,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9T6M24N5BR;
 				INFOPLIST_FILE = PhotoSelector/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.hdos.PhotoSelector;
+				PRODUCT_BUNDLE_IDENTIFIER = com.hdos.JnKindle;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
