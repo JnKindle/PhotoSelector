@@ -7,8 +7,8 @@
 //
 
 #define JKMaxImageCount 3
-#define JKImageWidth 90*JK_FIT_WIDTH
-#define JKFitFrame(x) self.jk_height * (x/100)  //原始比例是100
+#define JKImageWidth 90*JN_SCREEN_FIT
+#define JKFitFrame(x) self.frame.size.height * (x/100)  //原始比例是100
 
 #import "JKPhotoSelectorView.h"
 
@@ -22,11 +22,10 @@
 
 //view
 #import "JKPhotoCollectionViewCell.h"
-#import "JKPhotoTypeView.h"
 
 @interface JKPhotoSelectorView ()<UICollectionViewDelegate,UICollectionViewDataSource,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
-@property (nonatomic, weak) JKBaseCollectView *collectionView;
+@property (nonatomic, weak) UICollectionView *collectionView;
 
 /**存放选择图片
  @[
@@ -37,8 +36,6 @@
 //记录当前点击的添加图片位置
 @property (nonatomic, assign) NSInteger currentClickPosition;
 
-@property (nonatomic, strong) JKPhotoTypeView *typeView;
-@property (nonatomic, copy) NSString *currentType;
 
 @end
 
@@ -66,17 +63,6 @@
     [self.collectionView reloadData];
 }
 
-- (JKPhotoTypeView *)typeView
-{
-    if (!_typeView) {
-        _typeView = [[JKPhotoTypeView alloc] initWithFrame:CGRectMake(0, 0, JK_SCREEN_WIDTH, JK_SCREEN_HEIGHT)];
-        _typeView.title = @"请选择图片类型";
-        _typeView.types = self.marksTypes;
-    }
-    return _typeView;
-}
-
-
 
 
 -(void)layoutSubviews
@@ -98,18 +84,18 @@
     int row = 1;
     int tag = 0;
     NSInteger imageCount = self.imageArray.count<5?self.imageArray.count+1:self.imageArray.count;
-    CGFloat rowWidth = 24*JK_FIT_WIDTH;
+    CGFloat rowWidth = 24*JN_SCREEN_FIT;
     for (int i=0; i<imageCount; i++) {
         CGFloat width = self.imageWidth;
         rowWidth = rowWidth + width;
-        if ((rowWidth + (i-tag)*5*JK_FIT_WIDTH)  >= self.jk_width) {
-            rowWidth = 40.0*JK_FIT_WIDTH + width;
+        if ((rowWidth + (i-tag)*5*JN_SCREEN_FIT)  >= self.frame.size.width) {
+            rowWidth = 40.0*JN_SCREEN_FIT + width;
             row++;
             tag = i+1;
         }
     }
     CGFloat itemHeight = self.imageWidth;
-    CGFloat height = (row-1)*5*JK_FIT_WIDTH + row*itemHeight;
+    CGFloat height = (row-1)*5*JN_SCREEN_FIT + row*itemHeight;
     return height;
 }
 
@@ -130,16 +116,16 @@
     return _imageArray;
 }
 
--(JKBaseCollectView *)collectionView
+-(UICollectionView *)collectionView
 {
     if (!_collectionView) {
         UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
         //距离边缘的空隙
-        layout.sectionInset = UIEdgeInsetsMake(0, 12.0*JK_FIT_WIDTH, 0, 12.0*JK_FIT_WIDTH);
+        layout.sectionInset = UIEdgeInsetsMake(0, 12.0*JN_SCREEN_FIT, 0, 12.0*JN_SCREEN_FIT);
         //两个item水平的最小空隙(默认10)
-        layout.minimumInteritemSpacing = 5.0*JK_FIT_WIDTH;
+        layout.minimumInteritemSpacing = 5.0*JN_SCREEN_FIT;
         //两个item垂直方向的最小空隙(默认10)
-        layout.minimumLineSpacing = 5.0*JK_FIT_WIDTH;
+        layout.minimumLineSpacing = 5.0*JN_SCREEN_FIT;
         //滚动方向
         switch (self.scrollDirection) {
             case PSScrollHorizontal:
@@ -154,7 +140,7 @@
         }
         layout.scrollDirection = UICollectionViewScrollDirectionVertical;
         
-        JKBaseCollectView *collectionView = [[JKBaseCollectView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
+        UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];
         //_collectionView.bounces = NO;
         collectionView.backgroundColor = [UIColor clearColor];
         collectionView.showsHorizontalScrollIndicator = NO;
@@ -204,39 +190,30 @@
     JKPhotoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([JKPhotoCollectionViewCell class]) forIndexPath:indexPath];
     
     if (self.imageArray.count == self.maxImageCount) { //最大图片数量
-        cell.showImageView.image = [self.imageArray[indexPath.item] objectForKey:@"image"];
-        cell.markInfoLabel.text = [self.imageArray[indexPath.item] objectForKey:@"mark"];
+        cell.showImageView.image = self.imageArray[indexPath.item];
         cell.deleteButton.hidden = NO;
         cell.indexLabel.hidden = YES;
-        cell.markInfoLabel.hidden = NO;
     }else{
         if (indexPath.item == self.imageArray.count) {
             //最后一个cell为添加cell
             cell.showImageView.image = [UIImage imageNamed:@"icon_ps_bg"];
-            cell.markInfoLabel.text = @"";
             cell.indexLabel.text = [NSString stringWithFormat:@"%ld/%ld",indexPath.item,(long)self.maxImageCount];
             if (self.imageArray.count == 0) {
                 cell.indexLabel.text = @"添加图片";
             }
             cell.indexLabel.hidden = NO;
             cell.deleteButton.hidden = YES;
-            cell.markInfoLabel.hidden = YES;
         }else{
-            cell.showImageView.image = [self.imageArray[indexPath.item] objectForKey:@"image"];
-            cell.markInfoLabel.text = [self.imageArray[indexPath.item] objectForKey:@"mark"];
+            cell.showImageView.image = self.imageArray[indexPath.item];
             cell.deleteButton.hidden = NO;
             cell.indexLabel.hidden = YES;
-            cell.markInfoLabel.hidden = NO;
         }
     }
     
-    if (!self.isShowMarkInfo) {
-        cell.markInfoLabel.hidden = NO;
-    }
     
     //删除回调方法
     
-    JKWeakSelf;
+    JnWeakSelf;
     cell.deleteItem = ^{
         [weakSelf.imageArray removeObjectAtIndex:indexPath.item];
         [weakSelf.collectionView reloadData];
@@ -254,33 +231,15 @@
 {
     if (self.imageArray.count != self.maxImageCount && indexPath.item == self.imageArray.count) {
         //点击的视图为上传图片的视图
-        if (self.isShowMarkInfo) {
-            //如果要显示标记，则先选择类型
-            [self.typeView showPhotoTypeView];
-            JKWeakSelf;
-            self.typeView.didSelectType = ^(NSString *type) {
-                weakSelf.currentType = type;
-                [weakSelf showAlertActionControllerWithClickPositon:indexPath.row];
-            };
-            return;
-        }
         [self showAlertActionControllerWithClickPositon:indexPath.row];
-        
         
     }else {
         //点击的视图为图片
-        
-        ImageType imageType = NetWorkImage;
-        Class myclass = [[self.imageArray[0] objectForKey:@"image"] class];
-        if ([myclass class] == NSClassFromString(@"UIImage")) {
-            imageType = LocateImage;
-        }
-        
         JKPhotoBrowseController *browseController = [[JKPhotoBrowseController alloc]init];
-        browseController.imageType = imageType;
+        browseController.imageType = LocateImage;
         browseController.imagesArry = [self.imageArray copy];
         browseController.currentPosition = indexPath.row;
-        [JKAPPCurrentController.navigationController pushViewController:browseController animated:YES];
+        [JNAPPCurrentController.navigationController pushViewController:browseController animated:YES];
     }
     
 }
@@ -307,7 +266,7 @@
     [alert addAction:takeFromAlbum];
     [alert addAction:cancel];
     
-    [JKAPPCurrentController presentViewController:alert animated:YES completion:nil];
+    [JNAPPCurrentController presentViewController:alert animated:YES completion:nil];
 }
 
 
@@ -367,7 +326,7 @@
     imageController.delegate = self;
     imageController.allowsEditing = YES;
     imageController.sourceType = sourceType;
-    [JKAPPCurrentController presentViewController:imageController animated:YES completion:nil];
+    [JNAPPCurrentController presentViewController:imageController animated:YES completion:nil];
 }
 
 //相册选择完成回调方法
@@ -377,13 +336,13 @@
         
     }];
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    JKLog(@"===>>%@",image);
+    JNLog(@"===>>%@",image);
     //根据获取的图片，填充数据模型，并刷新界面
     if (_currentClickPosition == self.imageArray.count && self.imageArray.count<self.maxImageCount) {
         //当前点击的为最后一个item
-        [self.imageArray addObject:@{@"mark":self.currentType,@"image":image}];
+        [self.imageArray addObject:image];
     }else{
-        [self.imageArray replaceObjectAtIndex:_currentClickPosition withObject:@{@"mark":self.currentType,@"image":image}];
+        [self.imageArray replaceObjectAtIndex:_currentClickPosition withObject:image];
     }
     [self.collectionView reloadData];
     

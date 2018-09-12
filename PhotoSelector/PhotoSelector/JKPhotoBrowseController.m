@@ -7,7 +7,7 @@
 //
 
 #import "JKPhotoBrowseController.h"
-#import <FDFullscreenPopGesture/UINavigationController+FDFullscreenPopGesture.h>
+
 
 @interface JKPhotoBroweCell : UICollectionViewCell
 @property (nonatomic, strong) NSString *imageContent; //url 或者 图片数据
@@ -32,7 +32,7 @@
 }
 
 - (void)setUpScorllerView{
-    self.scrollerView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, JK_SCREEN_WIDTH, JK_SCREEN_HEIGHT)];
+    self.scrollerView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, JN_SCREEN_WIDTH, JN_SCREEN_HEIGHT)];
     self.scrollerView.maximumZoomScale = 3.0;
     self.scrollerView.minimumZoomScale = 1.0;
     self.scrollerView.showsVerticalScrollIndicator = NO;
@@ -64,8 +64,8 @@
 {
     UIImageView *tempImageView = [[UIImageView alloc]init];
     if (self.isNetWorkImage) {
-        JKWeakSelf;
-        [tempImageView sd_setImageWithURL:[NSURL URLWithString:imageContent] placeholderImage:[UIImage imageNamed:JKHealthInfoPlaceholder] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        JnWeakSelf;
+        [tempImageView sd_setImageWithURL:[NSURL URLWithString:imageContent] placeholderImage:[UIImage imageNamed:@"icon_placeholder"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
             //移除上一个pictureImageView
             [weakSelf.pictureImage removeFromSuperview];
             
@@ -100,16 +100,16 @@
     CGFloat imageY = imageView.image.size.height;
     CGRect imgfram;
     CGFloat CGscale;
-    BOOL flx =  (JK_SCREEN_WIDTH / JK_SCREEN_HEIGHT) > (imageX / imageY);
+    BOOL flx =  (JN_SCREEN_WIDTH / JN_SCREEN_HEIGHT) > (imageX / imageY);
     if(flx){
-        CGscale = JK_SCREEN_HEIGHT / imageY;
+        CGscale = JN_SCREEN_HEIGHT / imageY;
         imageX = imageX * CGscale;
-        imgfram = CGRectMake((JK_SCREEN_WIDTH - imageX) / 2, 0, imageX, JK_SCREEN_HEIGHT);
+        imgfram = CGRectMake((JN_SCREEN_WIDTH - imageX) / 2, 0, imageX, JN_SCREEN_HEIGHT);
         return imgfram;
     }else{
-        CGscale = JK_SCREEN_WIDTH / imageX;
+        CGscale = JN_SCREEN_WIDTH / imageX;
         imageY = imageY * CGscale;
-        imgfram = CGRectMake(0, (JK_SCREEN_HEIGHT - imageY) / 2, JK_SCREEN_WIDTH, imageY);
+        imgfram = CGRectMake(0, (JN_SCREEN_HEIGHT - imageY) / 2, JN_SCREEN_WIDTH, imageY);
         return imgfram;
     }
 }
@@ -124,8 +124,6 @@
 @property (nonatomic, strong) UILabel *indexLabel;
 @property (nonatomic, assign) NSInteger tagIndex;
 @property (nonatomic, strong) UIView *navBarView;
-
-@property (nonatomic, strong) UILabel *typeLabel;
 
 
 @end
@@ -142,7 +140,7 @@ static NSString *const pictureCellID = @"JKPhotoBroweCell";
         UICollectionViewFlowLayout *layOut = [[UICollectionViewFlowLayout alloc]init];
         layOut.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         layOut.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        layOut.itemSize = CGSizeMake(JK_SCREEN_WIDTH, JK_SCREEN_HEIGHT);
+        layOut.itemSize = CGSizeMake(JN_SCREEN_WIDTH, JN_SCREEN_HEIGHT);
         layOut.minimumLineSpacing = CGFLOAT_MIN;
         layOut.minimumInteritemSpacing = CGFLOAT_MIN;
         
@@ -154,7 +152,7 @@ static NSString *const pictureCellID = @"JKPhotoBroweCell";
         _picturesCollectionView.showsVerticalScrollIndicator = NO;
         _picturesCollectionView.bounces = NO; //关闭弹性
         _picturesCollectionView.scrollEnabled = NO;//关闭自身滚动
-        _picturesCollectionView.backgroundColor = [UIColor colorWithHexString:@"0xF3F3F3"];
+        _picturesCollectionView.backgroundColor = [GlobalFunction colorWithHexString:@"0xF3F3F3"];
         
         //注册cell
         [_picturesCollectionView registerClass:[JKPhotoBroweCell class] forCellWithReuseIdentifier:pictureCellID];
@@ -180,9 +178,9 @@ static NSString *const pictureCellID = @"JKPhotoBroweCell";
 - (UILabel *)indexLabel{
     if (!_indexLabel) {
         _indexLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 60, 20)];
-        _indexLabel.center  = CGPointMake(self.view.center.x,  JK_StatusBarH + 20);
+        _indexLabel.center  = CGPointMake(self.view.center.x,  JN_StatusBarH + 20);
         _indexLabel.textAlignment = NSTextAlignmentCenter;
-        _indexLabel.font = [UIFont systemFontOfSize:16*JK_FIT_WIDTH];
+        _indexLabel.font = [UIFont systemFontOfSize:16*JN_SCREEN_FIT];
         _indexLabel.textColor = [UIColor whiteColor];
         
         [self.navBarView addSubview:_indexLabel];
@@ -190,29 +188,16 @@ static NSString *const pictureCellID = @"JKPhotoBroweCell";
     return _indexLabel;
 }
 
-- (UILabel *)typeLabel{
-    if (!_typeLabel) {
-        _typeLabel = [[UILabel alloc]initWithFrame:CGRectMake(12, JK_SCREEN_HEIGHT-30, 50, 19)];
-        _typeLabel.backgroundColor = [UIColor whiteColor];
-        _typeLabel.textAlignment = NSTextAlignmentCenter;
-        _typeLabel.font = [UIFont systemFontOfSize:12];
-        _typeLabel.textColor = RGB_COLOR(101, 84, 58);
-        [self.navBarView addSubview:_typeLabel];
-        
-        [JKGlobalFunction setRoundWithView:_typeLabel cornerRadius:3];
-    }
-    return _typeLabel;
-}
 
 - (UIView *)navBarView{
     if (!_navBarView) {
-        _navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, JK_SCREEN_WIDTH, JK_StatusBarH + 40)];
+        _navBarView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, JN_SCREEN_WIDTH, JN_StatusBarH + 40)];
         _navBarView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
         
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        backButton.frame = CGRectMake(12, 6+JK_StatusBarH, 32, 32);
+        backButton.frame = CGRectMake(12, 6+JN_StatusBarH, 32, 32);
         [backButton setBackgroundColor:[UIColor clearColor]];
-        [backButton setImage:[UIImage imageNamed:@"BACK_Auth"] forState:UIControlStateNormal];
+        [backButton setImage:[UIImage imageNamed:@"icon_back"] forState:UIControlStateNormal];
         [backButton addTarget:self action:@selector(popCurrentVC) forControlEvents:UIControlEventTouchUpInside];
         [_navBarView addSubview:backButton];
         
@@ -248,18 +233,16 @@ static NSString *const pictureCellID = @"JKPhotoBroweCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithHexString:@"0xF3F3F3"];
+    self.view.backgroundColor = [GlobalFunction colorWithHexString:@"0xF3F3F3"];
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.fd_interactivePopDisabled = YES;
     
     //设置初始偏移量
-    self.picturesCollectionView.contentOffset = CGPointMake(JK_SCREEN_WIDTH * self.currentPosition, 0);
+    self.picturesCollectionView.contentOffset = CGPointMake(JN_SCREEN_WIDTH * self.currentPosition, 0);
     self.tagIndex = self.currentPosition;
     [self navBarView];
     
     //添加计数label
     self.indexLabel.text = [NSString stringWithFormat:@"%ld/%ld",self.tagIndex + 1,self.imagesArry.count];
-    self.typeLabel.text = [self.imagesArry[self.tagIndex] objectForKey:@"mark"];
     
     
 }
@@ -289,7 +272,7 @@ static NSString *const pictureCellID = @"JKPhotoBroweCell";
             cell.isNetWorkImage = YES;
             break;
     }
-    cell.imageContent = [self.imagesArry[indexPath.item] objectForKey:@"image"];
+    cell.imageContent = self.imagesArry[indexPath.item];
     
     
     return cell;
@@ -321,9 +304,8 @@ static NSString *const pictureCellID = @"JKPhotoBroweCell";
         [self.picturesCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
         self.indexLabel.text = [NSString stringWithFormat:@"%ld/%ld",self.tagIndex + 1,self.imagesArry.count];
         
-        self.typeLabel.text = [self.imagesArry[self.tagIndex] objectForKey:@"mark"];
     }else{
-        [ProgressHUD showNoImage:@"已经是最后一页了"];
+        //[ProgressHUD showNoImage:@"已经是最后一页了"];
     }
 }
 
@@ -334,10 +316,9 @@ static NSString *const pictureCellID = @"JKPhotoBroweCell";
         [self.picturesCollectionView scrollToItemAtIndexPath:indexPath atScrollPosition:UICollectionViewScrollPositionNone animated:YES];
         self.indexLabel.text = [NSString stringWithFormat:@"%ld/%ld",self.tagIndex + 1,self.imagesArry.count];
         
-        self.typeLabel.text = [self.imagesArry[self.tagIndex] objectForKey:@"mark"];
         
     }else{
-        [ProgressHUD showNoImage:@"已经是最后一页了"];
+        //[ProgressHUD showNoImage:@"已经是最后一页了"];
     }
 }
 

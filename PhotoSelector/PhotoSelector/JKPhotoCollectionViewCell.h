@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 
-@interface JKPhotoCollectionViewCell : JKBaseCollectionViewCell
+@interface JKPhotoCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIImageView *showImageView;
 

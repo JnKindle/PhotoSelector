@@ -6,7 +6,7 @@
 //  Copyright © 2018年 新开元 iOS. All rights reserved.
 //
 
-#import "JKBaseViewController.h"
+#import <UIKit/UIKit.h>
 
 
 typedef NS_ENUM(NSInteger, ImageType){

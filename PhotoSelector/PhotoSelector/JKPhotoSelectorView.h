@@ -27,9 +27,6 @@ typedef void(^DidSelectImages)(NSArray *imageArray,CGFloat photoSelectorViewHeig
 //滚动方向
 @property (nonatomic, assign) ScrollDirection scrollDirection;
 
-//是否显示标记
-@property (nonatomic, assign) BOOL isShowMarkInfo;
-@property (nonatomic, strong) NSArray *marksTypes;
 
 /**
  非必须
